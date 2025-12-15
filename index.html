@@ -4,289 +4,286 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Milli Piyango Online | Şans Oyunları Sonuçları</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
         :root {
-            --mp-dark: #1f0b40;
-            --mp-purple: #321665;
-            --mp-yellow: #fec20a;
-            --mp-yellow-hover: #e5af09;
-            --text-gray: #ececec;
+            --primary-dark: #1f0b40;
+            --primary-purple: #321665;
+            --accent-yellow: #fec20a;
+            --bg-gray: #f4f6f8;
+            --text-dark: #333;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f6f8;
-            color: #333;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* HEADER */
+        /* --- HEADER --- */
         header {
-            background-color: var(--mp-dark);
+            background-color: var(--primary-dark);
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 15px;
+            padding: 0 16px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-left { display: flex; align-items: center; gap: 16px; }
         
-        /* SVG İKONLAR (Resim yüklenmeme riskine karşı gömülü) */
-        .icon-menu { width: 24px; height: 24px; fill: white; cursor: pointer; }
-        .icon-user { width: 22px; height: 22px; fill: white; opacity: 0.9; }
+        .hamburger { width: 24px; height: 24px; fill: white; cursor: pointer; }
 
         .logo {
+            font-size: 16px;
             font-weight: 900;
             color: white;
-            font-size: 18px;
-            letter-spacing: -0.5px;
-            line-height: 1.1;
+            line-height: 1;
             text-transform: uppercase;
             cursor: pointer;
         }
-        .logo span { color: var(--mp-yellow); display: block; font-size: 10px; letter-spacing: 2px; }
+        .logo span { color: var(--accent-yellow); font-size: 10px; display: block; letter-spacing: 2px; }
 
-        .btn-login {
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            padding: 6px 14px;
+        .login-btn {
+            border: 1px solid rgba(255,255,255,0.4);
             color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             cursor: pointer;
         }
+        .login-icon { width: 16px; height: 16px; fill: white; }
 
-        /* BREADCRUMB & HERO */
-        .sub-header {
-            background: linear-gradient(90deg, #1f0b40 0%, #4a248f 100%);
-            color: white;
-            padding: 20px 15px 60px 15px; /* Alt boşluk kart için */
+        /* --- HERO AREA --- */
+        .hero {
+            background: linear-gradient(135deg, #1f0b40 0%, #4a148c 100%);
+            padding: 20px 16px 70px 16px;
             text-align: center;
+            color: white;
         }
+        .hero h2 { margin: 0; font-size: 18px; font-weight: 700; }
+        .hero p { margin: 5px 0 0; font-size: 12px; opacity: 0.8; }
 
-        .page-title { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
-        .page-desc { font-size: 13px; opacity: 0.8; }
-
-        /* SORGULAMA KARTI (MAIN CARD) */
-        .search-card {
+        /* --- MAIN CARD --- */
+        .card {
             background: white;
-            width: 90%;
-            margin: -40px auto 20px auto;
+            width: 92%;
+            margin: -50px auto 0 auto;
             border-radius: 12px;
-            padding: 25px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             position: relative;
             z-index: 10;
+            overflow: hidden;
         }
 
-        .lottery-info {
+        .tabs {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #f9f9f9;
             border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
         }
-        
-        .lottery-date {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--mp-purple);
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
         }
-        
-        .lottery-name {
-            font-size: 12px;
-            background: #f0f0f0;
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: #666;
+        .tab.active {
+            background: white;
+            color: var(--primary-purple);
+            border-top: 3px solid var(--accent-yellow);
         }
 
-        .input-group { margin-bottom: 20px; text-align: left; }
-        
-        label {
+        .card-body { padding: 24px; }
+
+        .input-label {
             font-size: 11px;
+            color: #666;
             font-weight: 700;
-            color: #888;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-bottom: 8px;
             display: block;
         }
 
         input[type="tel"] {
             width: 100%;
-            height: 54px;
+            height: 56px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            letter-spacing: 6px;
             text-align: center;
+            letter-spacing: 4px;
             color: #333;
             box-sizing: border-box;
+            background: #fcfcfc;
             outline: none;
-            transition: all 0.2s;
-            font-family: 'Roboto', sans-serif;
-            background: #f9f9f9;
+            transition: 0.3s;
         }
+        input:focus { border-color: var(--primary-purple); background: white; }
 
-        input[type="tel"]:focus {
-            border-color: var(--mp-purple);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(50, 22, 101, 0.1);
-        }
-
-        .btn-check {
-            background-color: var(--mp-yellow);
-            color: var(--mp-dark);
-            width: 100%;
-            height: 50px;
+        .btn-submit {
+            background-color: var(--accent-yellow);
+            color: var(--primary-dark);
             border: none;
-            border-radius: 25px;
+            width: 100%;
+            height: 52px;
+            border-radius: 30px;
             font-size: 16px;
             font-weight: 800;
+            margin-top: 20px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(254, 194, 10, 0.3);
-            transition: transform 0.1s;
+            box-shadow: 0 4px 12px rgba(254, 194, 10, 0.4);
         }
+        .btn-submit:active { transform: scale(0.98); }
 
-        .btn-check:active { transform: scale(0.98); background-color: var(--mp-yellow-hover); }
-
-        /* LOADER */
-        .loading-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.95);
-            border-radius: 12px;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
+        /* --- OTHER GAMES (FILLER) --- */
+        .other-games {
+            padding: 30px 16px;
+            text-align: center;
+        }
+        .section-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 15px; text-align: left; }
+        
+        .game-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
         }
         
-        .spinner {
-            width: 40px; height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--mp-purple);
+        .game-item {
+            background: white;
+            padding: 15px 5px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .game-circle {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; color: white; font-size: 10px;
+        }
+
+        .loto-name { font-size: 11px; font-weight: 600; color: #555; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: white;
+            padding: 30px 20px 80px 20px; /* Alttan boşluk chat butonu için */
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+        .footer-links {
+            display: flex; justify-content: center; gap: 15px;
+            font-size: 11px; color: #777; margin-bottom: 20px;
+        }
+        .copyright { font-size: 10px; color: #aaa; line-height: 1.6; }
+
+        /* --- FLOATING ELEMENTS --- */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #323232; color: white;
+            padding: 15px; box-sizing: border-box;
+            font-size: 11px; z-index: 9000;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .btn-accept {
+            background: var(--accent-yellow); color: black;
+            border: none; padding: 6px 15px; border-radius: 4px;
+            font-weight: bold; font-size: 11px; margin-left: 10px;
+        }
+
+        .chat-btn {
+            position: fixed; bottom: 80px; right: 20px;
+            width: 50px; height: 50px;
+            background: #25d366; /* WhatsApp/Chat green */
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 8000;
+            cursor: pointer;
+        }
+        .chat-icon { width: 28px; height: 28px; fill: white; }
+
+        /* --- LOADER --- */
+        .loader-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            display: none; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 20;
+        }
+        .spinner {
+            width: 35px; height: 35px;
+            border: 3px solid #eee; border-top: 3px solid var(--primary-purple);
+            border-radius: 50%; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* FOOTER FAKE */
-        .footer {
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 11px;
-            color: #999;
-        }
-        .footer strong { display: block; font-size: 18px; color: #ccc; margin-bottom: 5px; }
-
-        /* --- KAZANDIN MODAL (Gelişmiş) --- */
-        .win-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(31, 11, 64, 0.9); /* Koyu mor transparan */
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+        /* --- WIN MODAL --- */
+        .modal-wrap {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            z-index: 10000; display: none;
+            justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box;
         }
 
         .win-card {
-            background: white;
-            width: 100%;
-            max-width: 380px;
-            border-radius: 20px;
-            text-align: center;
-            overflow: hidden;
-            animation: popUp 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: white; width: 100%; max-width: 350px;
+            border-radius: 16px; overflow: hidden; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.5s ease;
         }
 
-        .win-header {
-            background: #27ae60;
-            padding: 20px;
-            color: white;
-            position: relative;
-            overflow: hidden;
+        .win-head {
+            background: #2e7d32; color: white; padding: 20px;
         }
-        /* Işıltı efekti */
-        .win-header::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(30deg);
-            animation: shine 3s infinite;
-        }
+        .win-head h1 { margin: 0; font-size: 24px; }
+        .win-head p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
 
-        .win-content { padding: 30px 20px; }
-
-        .win-title { font-size: 28px; font-weight: 900; margin: 0; letter-spacing: -1px; }
-        .win-subtitle { font-size: 14px; opacity: 0.9; margin-top: 5px; font-weight: 500; }
-
-        .amount-box {
-            margin: 25px 0;
-            padding: 15px;
-            background: #fcfcfc;
-            border: 2px dashed #eee;
-            border-radius: 10px;
-        }
-
-        .win-label { font-size: 12px; font-weight: 700; color: #888; letter-spacing: 1px; text-transform: uppercase;}
+        .win-body { padding: 30px 20px; }
         
-        .big-money {
-            font-size: 42px;
-            line-height: 1.1;
-            font-weight: 900;
-            color: #d32f2f;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
-            margin-top: 5px;
+        .ticket-display {
+            background: #f4f4f4; padding: 8px 16px; border-radius: 20px;
+            display: inline-block; font-weight: bold; color: #333; margin-bottom: 20px; font-size: 14px;
         }
 
-        .ticket-confirm {
-            font-size: 14px;
-            color: #555;
-            background: #f0f0f0;
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            font-weight: 600;
+        .prize {
+            font-size: 36px; font-weight: 900; color: #d32f2f;
+            letter-spacing: -1px; margin-bottom: 5px;
+        }
+        .prize-label { font-size: 12px; color: #888; font-weight: 700; text-transform: uppercase; }
+
+        .info-text { font-size: 11px; color: #777; margin: 25px 0; line-height: 1.5; }
+
+        .btn-modal {
+            background: var(--primary-dark); color: white; border: none;
+            padding: 14px; width: 100%; border-radius: 30px;
+            font-weight: bold; cursor: pointer;
         }
 
-        .btn-real {
-            background-color: var(--mp-purple);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            border: none;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
-
-        /* Kaçış için tıklanabilir alan sınıfı */
-        .escape-link { cursor: pointer; }
+        /* Fake Link Class */
+        .fake-link { cursor: pointer; }
 
     </style>
 </head>
@@ -294,142 +291,156 @@
 
     <header>
         <div class="header-left">
-            <svg class="icon-menu escape-link" viewBox="0 0 24 24" onclick="goReal()">
-                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-            </svg>
-            <div class="logo escape-link" onclick="goReal()">
+            <svg class="hamburger fake-link" onclick="goReal()" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            <div class="logo fake-link" onclick="goReal()">
                 milli piyango
                 <span>ONLINE</span>
             </div>
         </div>
-        <div class="btn-login escape-link" onclick="goReal()">
-            <svg class="icon-user" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+        <div class="login-btn fake-link" onclick="goReal()">
+            <svg class="login-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             Giriş
         </div>
     </header>
 
-    <div class="sub-header">
-        <div class="page-title">ÇEKİLİŞ SONUÇLARI</div>
-        <div class="page-desc">Milli Piyango ve Şans Oyunları Sonuç Sorgulama</div>
+    <div class="hero">
+        <h2>SONUÇLAR</h2>
+        <p>Milli Piyango ve Şans Oyunları</p>
     </div>
 
-    <div class="search-card">
-        <div class="lottery-info">
-            <div class="lottery-date">31 Aralık 2025</div>
-            <div class="lottery-name">Yılbaşı Özel</div>
-        </div>
-
-        <div class="input-group">
-            <label>BİLET NUMARASI</label>
-            <input type="tel" id="ticketNo" placeholder="-------" maxlength="7" oninput="formatInput(this)">
-        </div>
-
-        <button class="btn-check" onclick="startPrank()">SORGULA</button>
-
-        <div class="loading-overlay" id="loader">
-            <div class="spinner"></div>
-            <p style="margin-top:15px; font-size:13px; font-weight:600; color:#555;">Sonuçlar Yükleniyor...</p>
+    <div class="card">
+        <div class="tabs">
+            <div class="tab active">BİLET SORGULA</div>
+            <div class="tab fake-link" onclick="goReal()">TÜM LİSTE</div>
         </div>
         
-        <div style="margin-top:20px; font-size:10px; color:#999; line-height:1.4;">
-            *Bu sayfadaki veriler Milli Piyango İdaresi güvencesiyle Sisal Şans tarafından sağlanmaktadır.
+        <div class="card-body">
+            <label class="input-label">Bilet Numaranız</label>
+            <input type="tel" id="ticketNo" placeholder="-------" maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            
+            <button class="btn-submit" onclick="check()">SORGULA</button>
+
+            <div class="loader-container" id="loader">
+                <div class="spinner"></div>
+                <div style="margin-top:15px; font-size:12px; font-weight:600; color:#555;">Merkezi sistem sorgulanıyor...</div>
+            </div>
         </div>
     </div>
 
-    <div class="footer escape-link" onclick="goReal()">
-        <strong>SISAL SANS</strong>
-        <p>
-            © 2025 Sisal Şans İnteraktif Hizmetler ve Şans Oyunları Yatırımları A.Ş.<br>
-            Tüm hakları saklıdır.
-        </p>
-        <div style="margin-top:15px; text-decoration: underline;">Bize Yazın | Sıkça Sorulan Sorular</div>
+    <div class="other-games">
+        <div class="section-title">POPÜLER ÇEKİLİŞLER</div>
+        <div class="game-list">
+            <div class="game-item fake-link" onclick="goReal()">
+                <div class="game-circle" style="background:#d60812;">ÇSL</div>
+                <div class="loto-name">Çılgın Sayısal</div>
+            </div>
+            <div class="game-item fake-link" onclick="goReal()">
+                <div class="game-circle" style="background:#1760be;">SL</div>
+                <div class="loto-name">Süper Loto</div>
+            </div>
+            <div class="game-item fake-link" onclick="goReal()">
+                <div class="game-circle" style="background:#f68b1f;">ŞT</div>
+                <div class="loto-name">Şans Topu</div>
+            </div>
+        </div>
     </div>
 
-    <div class="win-overlay" id="winModal">
-        <div class="win-card">
-            <div class="win-header">
-                <h1 class="win-title">TEBRİKLER!</h1>
-                <div class="win-subtitle">Büyük İkramiye Talihlisi</div>
-            </div>
-            <div class="win-content">
-                <div class="ticket-confirm">Bilet No: <span id="winTicketNum" style="color:#000;"></span></div>
-                
-                <div class="amount-box">
-                    <div class="win-label">KAZANILAN TUTAR</div>
-                    <div class="big-money">800.000.000 ₺</div>
-                </div>
+    <footer>
+        <div class="footer-links">
+            <span class="fake-link" onclick="goReal()">Hakkımızda</span>
+            <span class="fake-link" onclick="goReal()">Yardım</span>
+            <span class="fake-link" onclick="goReal()">İletişim</span>
+        </div>
+        <div class="copyright">
+            <strong>SİSAL ŞANS İNTERAKTİF HİZMETLERİ</strong><br>
+            © 2025 Tüm Hakları Saklıdır.<br><br>
+            Bu sitede yer alan içerikler Sisal Şans güvencesi altındadır.
+        </div>
+    </footer>
 
-                <p style="font-size:12px; color:#777; margin-bottom: 20px; line-height: 1.5;">
-                    Sayın talihli, ikramiye ödemeniz için lütfen geçerli kimlik belgeniz ve biletinizle birlikte <strong>Milli Piyango Genel Müdürlüğü</strong>'ne başvurunuz.
+    <div class="cookie-banner" id="cookieBanner">
+        <div>Size daha iyi hizmet sunabilmek için çerezleri kullanıyoruz.</div>
+        <button class="btn-accept" onclick="document.getElementById('cookieBanner').style.display='none'">Tamam</button>
+    </div>
+
+    <div class="chat-btn fake-link" onclick="goReal()">
+        <svg class="chat-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+
+    <div class="modal-wrap" id="winModal">
+        <div class="win-card">
+            <div class="win-head">
+                <h1>TEBRİKLER!</h1>
+                <p>Büyük İkramiye Kazananı</p>
+            </div>
+            <div class="win-body">
+                <div class="ticket-display">Bilet No: <span id="displayNum"></span></div>
+                
+                <div class="prize-label">KAZANILAN TUTAR</div>
+                <div class="prize">800.000.000 ₺</div>
+                
+                <p class="info-text">
+                    Değerli üyemiz, ikramiye ödemeniz için kimlik belgenizle birlikte en yakın bölge müdürlüğümüze veya genel merkeze başvurunuz.
                 </p>
 
-                <button class="btn-real" onclick="goReal()">RESMİ DETAYLARI GÖR</button>
+                <button class="btn-modal" onclick="goReal()">DETAYLARI GÖR</button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <script>
-        // GERÇEK SİTEYE YÖNLENDİRME
         function goReal() {
-            window.location.href = "https://www.millipiyangoonline.com/sonuclar";
+            window.location.href = "https://www.millipiyangoonline.com/";
         }
 
-        // Sadece rakam girişi
-        function formatInput(input) {
-            input.value = input.value.replace(/[^0-9]/g, '');
-        }
-
-        function startPrank() {
+        function check() {
             var input = document.getElementById('ticketNo');
             var loader = document.getElementById('loader');
 
             if(input.value.length < 2) {
-                // Resmi site gibi davran, boşsa kırmızı yak ama uyarı verme
-                input.style.border = "2px solid #d32f2f";
-                input.style.background = "#fff4f4";
+                // Hata vermesin, sadece input kızarsın (Profesyonel UI davranışı)
+                input.style.border = "1px solid red";
+                input.style.backgroundColor = "#fff5f5";
                 return;
             }
 
             // Klavye kapansın
             input.blur();
 
-            // Loader aç
+            // Loader başlasın
             loader.style.display = 'flex';
 
-            // 3 saniye bekleme (Gerçekçi ağ gecikmesi)
+            // 3 saniye bekleme (Ağ gecikmesi simülasyonu)
             setTimeout(function() {
                 loader.style.display = 'none';
-                showWinner(input.value);
+                showWin(input.value);
             }, 3000);
         }
 
-        function showWinner(number) {
+        function showWin(num) {
             var modal = document.getElementById('winModal');
-            document.getElementById('winTicketNum').innerText = number;
-            modal.style.display = 'flex'; // Modalı aç
+            document.getElementById('displayNum').innerText = num;
+            modal.style.display = 'flex';
 
             // Konfeti show
-            var end = Date.now() + (5 * 1000);
-            var colors = ['#fec20a', '#ffffff', '#27ae60']; // Altın, Beyaz, Yeşil
+            var duration = 4 * 1000;
+            var end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 4,
+                    particleCount: 5,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: colors
+                    colors: ['#321665', '#fec20a', '#ffffff'] // MP renkleri
                 });
                 confetti({
-                    particleCount: 4,
+                    particleCount: 5,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: colors
+                    colors: ['#321665', '#fec20a', '#ffffff']
                 });
 
                 if (Date.now() < end) {
