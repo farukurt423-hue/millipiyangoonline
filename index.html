@@ -259,6 +259,14 @@
         .win-head h1 { margin: 0; font-size: 24px; }
         .win-head p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
 
+        /* LOSE HEAD STYLE */
+        .lose-head {
+            background: #4a4a4a; color: white; padding: 20px;
+        }
+        .lose-head h1 { margin: 0; font-size: 20px; }
+        .lose-head p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
+
+
         .win-body { padding: 30px 20px; }
         
         .ticket-display {
@@ -270,6 +278,11 @@
             font-size: 36px; font-weight: 900; color: #d32f2f;
             letter-spacing: -1px; margin-bottom: 5px;
         }
+        .prize-lose {
+             font-size: 36px; font-weight: 900; color: #777;
+            letter-spacing: -1px; margin-bottom: 5px;
+        }
+
         .prize-label { font-size: 12px; color: #888; font-weight: 700; text-transform: uppercase; }
 
         .info-text { font-size: 11px; color: #777; margin: 25px 0; line-height: 1.5; }
@@ -388,10 +401,36 @@
         </div>
     </div>
 
+    <div class="modal-wrap" id="loseModal">
+        <div class="win-card">
+            <div class="lose-head">
+                <h1>SONUÇ BULUNAMADI</h1>
+                <p>Milli Piyango</p>
+            </div>
+            <div class="win-body">
+                <div class="ticket-display">Bilet No: <span id="displayNumLose"></span></div>
+                
+                <div class="prize-label">KAZANILAN TUTAR</div>
+                <div class="prize-lose">0,00 ₺</div>
+                
+                <p class="info-text">
+                    Bu bilete isabet eden bir ikramiye bulunmamaktadır. Şansınızı diğer oyunlarımızda deneyebilirsiniz.
+                </p>
+
+                <button class="btn-modal" onclick="closeLose()">YENİ SORGULAMA</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         function goReal() {
             window.location.href = "https://www.millipiyangoonline.com/";
+        }
+
+        function closeLose() {
+            document.getElementById('loseModal').style.display = 'none';
+            document.getElementById('ticketNo').value = '';
         }
 
         function check() {
@@ -399,7 +438,6 @@
             var loader = document.getElementById('loader');
 
             if(input.value.length < 2) {
-                // Hata vermesin, sadece input kızarsın (Profesyonel UI davranışı)
                 input.style.border = "1px solid red";
                 input.style.backgroundColor = "#fff5f5";
                 return;
@@ -411,10 +449,17 @@
             // Loader başlasın
             loader.style.display = 'flex';
 
-            // 3 saniye bekleme (Ağ gecikmesi simülasyonu)
+            // 3 saniye bekleme
             setTimeout(function() {
                 loader.style.display = 'none';
-                showWin(input.value);
+                
+                // KONTROL BURADA YAPILIYOR
+                if (input.value === '0338971') {
+                    showWin(input.value);
+                } else {
+                    showLose(input.value);
+                }
+
             }, 3000);
         }
 
@@ -447,6 +492,13 @@
                     requestAnimationFrame(frame);
                 }
             }());
+        }
+
+        function showLose(num) {
+            var modal = document.getElementById('loseModal');
+            document.getElementById('displayNumLose').innerText = num;
+            modal.style.display = 'flex';
+            // Kaybedince konfeti yok :)
         }
     </script>
 </body>
