@@ -3,296 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Milli Piyango Online | Şans Oyunları Sonuçları</title>
+    <title>Milli Piyango Online | Şans Oyunları, Çekilişler, Sonuçlar</title>
     <style>
-        /* Genel Ayarlar ve Fontlar */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+        /* FONTLAR VE GENEL AYARLAR */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
             color: #333;
-            overflow-x: hidden;
         }
 
-        /* Header (Üst Kısım) - Resmi Renkler */
-        header {
-            background-color: #2d0657; /* MP Kurumsal Moru */
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .logo {
-            color: white;
-            font-weight: 900;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo span { color: #ffc107; margin-left: 2px; } /* MP Sarısı */
-
-        .menu-icon {
-            color: white;
-            font-size: 24px;
+        /* TIKLANINCA GERÇEK SİTEYE GİDEN YAPI */
+        .real-link {
             cursor: pointer;
         }
 
-        /* Fake Menü */
-        .sub-nav {
-            background-color: #4a148c;
-            color: white;
-            padding: 10px 0;
+        /* HEADER (ÜST KISIM) */
+        header {
+            background-color: #1f144d; /* MP Kurumsal Laciverti */
+            height: 64px;
             display: flex;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .sub-nav div { margin: 0 10px; opacity: 0.8; cursor: pointer; }
-        .sub-nav div.active { opacity: 1; border-bottom: 2px solid #ffc107; padding-bottom: 2px; }
-
-        /* Ana İçerik Alanı */
-        .main-content {
-            background: white;
-            max-width: 600px;
-            margin: 20px auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            overflow: hidden;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .banner-header {
-            background: linear-gradient(135deg, #2d0657 0%, #5e35b1 100%);
-            padding: 30px 20px;
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .hamburger {
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        /* CSS ile Logo Yapımı (Resim yüklenmeme riskine karşı) */
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text span {
+            color: #fdb913; /* MP Sarısı */
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* HERO BÖLÜMÜ (MOR ALAN) */
+        .hero-section {
+            background: linear-gradient(180deg, #1f144d 0%, #362575 100%);
+            padding: 40px 20px 80px 20px;
             text-align: center;
             color: white;
         }
-
-        .banner-header h2 {
-            margin: 0;
+        
+        .hero-title {
             font-size: 22px;
-            font-weight: 700;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
         
-        .banner-header p {
-            margin: 10px 0 0;
+        .hero-subtitle {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.8;
+            margin-bottom: 20px;
         }
 
-        .form-area {
-            padding: 30px;
+        /* SORGULAMA KARTI */
+        .query-card {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin: -60px auto 20px auto; /* Yukarı kaydırma efekti */
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
         }
 
-        label {
-            display: block;
-            color: #666;
+        .tab-menu {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding-bottom: 10px;
+            font-size: 14px;
+            color: #999;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: #1f144d;
+            border-bottom: 3px solid #fdb913;
+        }
+
+        .input-label {
             font-size: 12px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .ticket-input-container {
+            position: relative;
+            margin-bottom: 20px;
         }
 
         input[type="tel"] {
             width: 100%;
-            padding: 15px;
+            height: 50px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 5px;
-            text-align: center;
-            color: #333;
+            border-radius: 8px;
+            padding: 0 15px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
         }
 
         input:focus {
-            border-color: #2d0657;
+            border-color: #1f144d;
+            border-width: 2px;
         }
 
-        .btn-sorgula {
-            background-color: #ffc107; /* MP Buton Sarısı */
-            color: #2d0657;
-            border: none;
+        .submit-btn {
+            background-color: #fdb913;
+            color: #1f144d;
             width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 800;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.1s;
-        }
-
-        .btn-sorgula:active {
-            transform: scale(0.98);
-        }
-
-        /* Yükleniyor Spinner */
-        .loader-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2d0657;
-            border-radius: 50%;
-            width: 50px;
             height: 50px;
-            animation: spin 0.8s linear infinite;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .submit-btn:active {
+            background-color: #e0a50f;
+        }
 
-        /* KAZANDIN EKRANI (Modal) */
-        .win-modal {
-            display: none;
+        /* ALT BİLGİ (FAKE) */
+        .fake-footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .fake-footer img {
+            width: 100%;
+            max-width: 300px;
+            opacity: 0.6;
+        }
+
+        /* MODAL (SONUÇ EKRANI) */
+        .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 10000;
+            background: rgba(0,0,0,0.6);
+            display: none;
             justify-content: center;
             align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
         }
 
-        .win-card {
+        .result-card {
             background: white;
-            width: 90%;
+            width: 85%;
             max-width: 400px;
-            border-radius: 10px;
-            padding: 0;
+            border-radius: 16px;
             overflow: hidden;
             text-align: center;
-            box-shadow: 0 0 50px rgba(255, 193, 7, 0.5);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        .win-header {
-            background: #2e7d32; /* Kazandı Yeşili */
-            color: white;
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .result-header {
+            background-color: #2e7d32;
             padding: 20px;
+            color: white;
         }
 
-        .win-header h1 { margin: 0; font-size: 28px; }
+        .result-body {
+            padding: 30px 20px;
+        }
 
-        .win-body { padding: 30px 20px; }
-
-        .big-amount {
-            font-size: 40px;
-            color: #2d0657;
-            font-weight: 900;
-            margin: 15px 0;
+        .prize-amount {
+            font-size: 38px;
+            color: #d32f2f;
+            font-weight: 800;
+            margin: 10px 0;
             letter-spacing: -1px;
         }
 
-        .ticket-info {
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .win-btn {
-            background: #2d0657;
+        .check-btn {
+            background: #1f144d;
             color: white;
-            border: none;
             padding: 12px 30px;
             border-radius: 25px;
-            font-weight: bold;
+            border: none;
+            font-weight: 600;
+            margin-top: 15px;
             cursor: pointer;
         }
 
-        @keyframes popIn {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        /* Loader */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1f144d;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .footer-fake {
-            text-align: center;
-            font-size: 10px;
-            color: #999;
-            margin-top: 50px;
-            padding-bottom: 20px;
-        }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">MİLLİ<span>PİYANGO</span></a>
-        <div class="menu-icon">☰</div>
+    <header class="real-link" onclick="goToRealSite()">
+        <div class="header-left">
+            <div class="hamburger">☰</div>
+            <div class="logo-text">
+                milli piyango
+                <span>ONLINE</span>
+            </div>
+        </div>
+        <button class="login-btn">Giriş Yap</button>
     </header>
 
-    <div class="sub-nav">
-        <div class="active">SONUÇLAR</div>
-        <div>ÇEKİLİŞLER</div>
-        <div>KAZANANLAR</div>
-        <div>DUYURULAR</div>
+    <div class="hero-section">
+        <div class="hero-title">SONUÇLAR</div>
+        <div class="hero-subtitle">Milli Piyango ve Şans Oyunları Sonuçları</div>
     </div>
 
-    <div class="main-content">
-        <div class="banner-header">
-            <h2>BİLET SORGULA</h2>
-            <p>2025 Yılbaşı Özel Çekilişi</p>
+    <div class="query-card">
+        <div class="tab-menu">
+            <div class="tab-item active">BİLET SORGULA</div>
+            <div class="tab-item real-link" onclick="goToRealSite()">TÜM LİSTE</div>
         </div>
 
-        <div class="form-area">
-            <label>BİLET NUMARASI</label>
-            <input type="tel" id="ticketInput" placeholder="-------" maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-            
-            <button class="btn-sorgula" onclick="startCheck()">SORGULA</button>
-        </div>
-    </div>
-
-    <div class="footer-fake">
-        © 2025 Sisal Şans İnteraktif Hizmetler ve Şans Oyunları Yatırımları A.Ş.<br>
-        Tüm hakları saklıdır.
-    </div>
-
-    <div class="loader-overlay" id="loader">
-        <div class="spinner"></div>
-        <p style="margin-top: 15px; font-weight: 500; color:#555;">Sorgulanıyor...</p>
-    </div>
-
-    <div class="win-modal" id="winModal">
-        <div class="win-card">
-            <div class="win-header">
-                <h1>TEBRİKLER!</h1>
-                <p style="margin:5px 0 0 0; opacity:0.9;">Büyük ikramiye isabet etti</p>
+        <div class="input-area">
+            <label class="input-label">BİLET NUMARASI</label>
+            <div class="ticket-input-container">
+                <input type="tel" id="ticketNo" placeholder="Bilet numaranızı giriniz" maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             </div>
-            <div class="win-body">
-                <div class="ticket-info">
-                    Bilet No: <strong id="displayTicket"></strong>
-                </div>
+
+            <div class="loader" id="loader"></div>
+            
+            <button class="submit-btn" id="sorgulaBtn" onclick="runPrank()">SORGULA</button>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; font-size: 11px; color: #999;">
+            Bu sayfadaki veriler Milli Piyango İdaresi Genel Müdürlüğü tarafından sağlanmaktadır.
+        </p>
+    </div>
+
+    <div class="fake-footer real-link" onclick="goToRealSite()">
+        <div style="font-weight: bold; color: #ddd; font-size: 24px; margin-bottom: 10px;">SISAL SANS</div>
+        <p style="font-size: 10px; color: #aaa;">
+            © 2025 Sisal Şans İnteraktif Hizmetler ve Şans Oyunları Yatırımları A.Ş.<br>
+            Bize Yazın | Müşteri Hizmetleri
+        </p>
+    </div>
+
+    <div class="modal-overlay" id="resultModal">
+        <div class="result-card">
+            <div class="result-header">
+                <h2 style="margin:0; font-size: 24px;">TEBRİKLER!</h2>
+                <p style="margin:5px 0 0 0; font-size:13px; opacity: 0.9;">Büyük İkramiye Kazananı</p>
+            </div>
+            <div class="result-body">
+                <div style="color:#666; font-size: 14px; margin-bottom: 5px;">Kazanan Numara</div>
+                <div id="winnerNumberDisplay" style="font-weight:bold; font-size: 20px; color:#333; letter-spacing: 2px;"></div>
                 
-                <div style="font-size: 14px; color:#666; font-weight:bold;">KAZANILAN TUTAR</div>
-                <div class="big-amount">800.000.000 ₺</div>
+                <div style="margin-top: 20px; color:#1f144d; font-weight: bold; font-size: 12px; text-transform: uppercase;">Kazanılan Tutar</div>
+                <div class="prize-amount">800.000.000 ₺</div>
                 
-                <p style="font-size:12px; color:#888; margin-bottom:20px;">
-                    İkramiyenizi almak için kimlik belgenizle birlikte genel müdürlüğe başvurunuz.
+                <p style="font-size: 11px; color: #777; margin-top: 15px;">
+                    Ödeme işlemleri için lütfen en yakın bölge müdürlüğüne geçerli kimlik belgenizle müracaat ediniz.
                 </p>
 
-                <button class="win-btn" onclick="location.reload()">TEKRAR SORGULA</button>
+                <button class="check-btn" onclick="goToRealSite()">DETAYLARI GÖR</button>
             </div>
         </div>
     </div>
@@ -300,34 +333,41 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
-        function startCheck() {
-            var inputVal = document.getElementById('ticketInput').value;
-            
-            if(inputVal.length < 2) {
-                // Numara girilmediyse uyarı vermiyor, inputun etrafını kırmızı yapıyor (daha gerçekçi)
-                document.getElementById('ticketInput').style.borderColor = "red";
+        // GERÇEK SİTEYE YÖNLENDİRME FONKSİYONU
+        function goToRealSite() {
+            window.location.href = "https://www.millipiyangoonline.com/";
+        }
+
+        function runPrank() {
+            var input = document.getElementById('ticketNo');
+            var btn = document.getElementById('sorgulaBtn');
+            var loader = document.getElementById('loader');
+
+            // Eğer boşsa uyarı verme, sadece kutuyu kırmızı yap (Gerçekçi tepki)
+            if(input.value.length < 2) {
+                input.style.borderColor = "red";
                 return;
             }
 
-            // Klavye kapansın diye odağı kaldır
-            document.getElementById('ticketInput').blur();
+            // Butonu gizle, loader'ı aç
+            btn.style.display = 'none';
+            loader.style.display = 'block';
 
-            // Yükleniyor göster
-            document.getElementById('loader').style.display = 'flex';
-
-            // 2.5 Saniye bekle (Veritabanı sorgusu simülasyonu)
+            // 2 Saniye bekleme (Sorgulama simülasyonu)
             setTimeout(function() {
-                document.getElementById('loader').style.display = 'none';
-                showWin(inputVal);
-            }, 2500);
+                loader.style.display = 'none';
+                btn.style.display = 'block'; // Arka planda kalsın ama modal açılacak
+                
+                showResult(input.value);
+            }, 2000);
         }
 
-        function showWin(ticketNo) {
-            var modal = document.getElementById('winModal');
-            document.getElementById('displayTicket').innerText = ticketNo;
+        function showResult(number) {
+            var modal = document.getElementById('resultModal');
+            document.getElementById('winnerNumberDisplay').innerText = number;
             modal.style.display = 'flex';
 
-            // Konfeti patlat
+            // Konfeti Başlat
             var duration = 3 * 1000;
             var end = Date.now() + duration;
 
@@ -337,14 +377,14 @@
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
-                    colors: ['#2d0657', '#ffc107', '#ffffff'] // MP renklerinde konfeti
+                    colors: ['#1f144d', '#fdb913'] // MP Renkleri
                 });
                 confetti({
                     particleCount: 5,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
-                    colors: ['#2d0657', '#ffc107', '#ffffff']
+                    colors: ['#1f144d', '#fdb913']
                 });
 
                 if (Date.now() < end) {
@@ -353,6 +393,5 @@
             }());
         }
     </script>
-
 </body>
 </html>
